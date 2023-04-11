@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "929797621123",
+    "project_id": "voyager-bf0a9",
+    "storage_bucket": "voyager-bf0a9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:929797621123:android:a96efab16bbfb76a7fa2b6",
+        "android_client_info": {
+          "package_name": "dk.itu.bachelor.voyager"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "929797621123-7hkbasoc826lipk033i4fe7m80cch4l0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "dk.itu.bachelor.voyager",
+            "certificate_hash": "c2b6b6616694372c3dff57c2478bd686a4c543e2"
+          }
+        },
+        {
+          "client_id": "929797621123-8ph8v9l13asd3p2mm8b6qgjldvltc6e6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBQwZPpnt0P_pQCuxCDH7cY8t4hLxWaNt0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "929797621123-8ph8v9l13asd3p2mm8b6qgjldvltc6e6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
