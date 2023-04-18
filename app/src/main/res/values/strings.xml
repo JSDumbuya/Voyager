@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Voyager</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="att_by_list_label">Attractions By List</string>
+    <string name="neighborhoods_label">Neighborhoods</string>
+    <string name="itineraries_label">Itineraries</string>
+    <string name="explore_label">Explore</string>
+    <string name="sign_out_label">Sign Out</string>
+    <string name="plan_your_trip_label">Plan Your Trip</string>
 </resources>
