@@ -7,13 +7,9 @@ import android.widget.Toast
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract
 import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult
-import com.google.firebase.auth.FirebaseAuth
 import dk.itu.bachelor.voyager.R
 
-class MainActivity : AppCompatActivity() {
-
-    //Setting up authentication
-    private lateinit var auth: FirebaseAuth
+class LoginActivity : AppCompatActivity() {
 
     private val signInLauncher =
         registerForActivityResult(
@@ -22,21 +18,19 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        FirebaseAuth.getInstance().signOut()
         createSignInIntent()
     }
+
 
     private fun createSignInIntent() {
         // Choose authentication providers.
         val providers = arrayListOf(
             AuthUI.IdpConfig.GoogleBuilder().build(),
             AuthUI.IdpConfig.EmailBuilder().build()
-
         )
         val signInIntent = AuthUI.getInstance()
             .createSignInIntentBuilder()
             .setAvailableProviders(providers)
-            .setLogo(R.drawable.logo)
             .setTheme(R.style.Theme_Voyager)
             .build()
         signInLauncher.launch(signInIntent)
@@ -61,6 +55,14 @@ class MainActivity : AppCompatActivity() {
         startActivity(intent)
         finish()
     }
+
+    /**
+     * Make a standard toast that just contains text.
+     *
+     * @param text The text to show. Can be formatted text.
+     * @param duration How long to display the message. Either `Toast.LENGTH_SHORT` or
+     *      `Toast.LENGTH_LONG`.
+     */
     private fun toast(text: CharSequence, duration: Int = Toast.LENGTH_SHORT) {
         Toast.makeText(this, text, duration).show()
     }

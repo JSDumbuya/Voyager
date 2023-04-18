@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">Voyager</string>
+    <string name="facebook_app_id">607307741284475</string>
+    <string name="fb_login_protocol_scheme">fb607307741284475</string>
+    <string name="facebook_client_token">ca1d6960b1978080b2a64dbcfe97816a</string>
 </resources>
