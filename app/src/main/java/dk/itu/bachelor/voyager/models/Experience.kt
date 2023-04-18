@@ -1,6 +1,7 @@
 package dk.itu.bachelor.voyager.models
 
 data class Experience(
+    var id: Number? = null,
     var lon: Double? = null,
     var lat: Double? = null,
     var name: String? = null,
@@ -10,6 +11,5 @@ data class Experience(
     var rating: Double? = null,
     var pictureUrls: List<String>? = null,
     var openTime: Long? = null,
-    var closingTime: Long? = null,
-    var specialOffers: List<String>? = null
+    var closingTime: Long? = null
 )
