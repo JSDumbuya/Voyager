@@ -2,20 +2,20 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/view_explore"
+        android:id="@+id/exploreFragment"
         android:enabled="true"
         android:visible="true"
         app:showAsAction="always"
         android:title="@string/explore_label"/>
 
     <item
-        android:id="@+id/view_plan_your_trip"
+        android:id="@+id/planFragment"
         app:showAsAction="always"
         android:title="@string/plan_your_trip_label"/>
 
 
     <item
-        android:id="@+id/view_itineraries"
+        android:id="@+id/itinerariesFragment"
         app:showAsAction="always"
         android:title="@string/itineraries_label"/>
 
