@@ -2,12 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="element"/>
+    android:layout_height="wrap_content">
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/card"
@@ -18,11 +13,12 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="horizontal">
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="6"
                 android:orientation="vertical"
                 android:padding="16dp">
 
@@ -54,6 +50,14 @@
                     android:textColor="?android:attr/textColorSecondary" />
 
             </LinearLayout>
+
+            <ImageView
+                android:id="@+id/exphoto"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:contentDescription="@string/picDesc"
+                android:layout_weight="4"
+                tools:srcCompat="@tools:sample/avatars" />
 
         </LinearLayout>
 

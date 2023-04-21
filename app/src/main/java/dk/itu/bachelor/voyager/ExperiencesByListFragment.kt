@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.firebase.ui.database.FirebaseRecyclerOptions
 import com.google.firebase.auth.FirebaseAuth
@@ -45,7 +46,7 @@ class ExperiencesByListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_experiences_by_list_element, container, false)
+
 
        //Binding between layout and fragment
         _binding = FragmentExperiencesByListBinding.inflate(layoutInflater)
@@ -73,6 +74,11 @@ class ExperiencesByListFragment : Fragment() {
         adapter = ExperienceArrayAdapter(this, options)
 
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
+
+        binding.recyclerView.addItemDecoration(
+            DividerItemDecoration(context, DividerItemDecoration.VERTICAL)
+        )
+
 
         binding.recyclerView.adapter = adapter
 

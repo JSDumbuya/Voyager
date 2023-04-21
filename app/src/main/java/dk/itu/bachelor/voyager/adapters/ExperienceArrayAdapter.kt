@@ -5,8 +5,10 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.firebase.ui.database.FirebaseRecyclerAdapter
 import com.firebase.ui.database.FirebaseRecyclerOptions
 import dk.itu.bachelor.voyager.ExperiencesByListFragment
@@ -32,6 +34,7 @@ class ExperienceArrayAdapter(
             val name: TextView = view.findViewById(R.id.title)
             val rating: TextView = view.findViewById(R.id.rating)
             val description: TextView = view.findViewById(R.id.description)
+            val photo: ImageView = view.findViewById(R.id.exphoto)
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -41,14 +44,21 @@ class ExperienceArrayAdapter(
             return ViewHolder(view)
         }
 
-        @SuppressLint("SetTextI18n", "SimpleDateFormat")
+        @SuppressLint("SetTextI18n")
         override fun onBindViewHolder(holder: ViewHolder, position: Int, experience: Experience) {
             Log.i(TAG, "Populate an item at position: $position")
 
             holder.apply {
                 name.text =  experience.name
-                rating.text = experience.rating.toString()
-                description.text = experience.description
+                rating.text = "Rating: ${experience.rating.toString()}"
+                description.text = experience.description?.take(170) + "..."
+
+                if (experience.pictureUrls?.isNotEmpty() == true) {
+                    Glide.with(holder.itemView.context)
+                        .load(experience.pictureUrls?.get(0))
+                        .into(holder.photo)
+                }
+
 
                 itemView.setOnLongClickListener {
                     itemClickListener.onItemClickListener(experience, position)
