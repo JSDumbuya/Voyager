@@ -5,4 +5,5 @@
     <string name="experience_title">Placeholder title</string>
     <string name="rating">Placeholder rating</string>
     <string name="description">Placeholder description</string>
+    <string name="picDesc">Picture of experience</string>
 </resources>
