@@ -3,6 +3,12 @@ package dk.itu.bachelor.voyager.activities
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MenuItem
+import androidx.core.view.get
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
@@ -11,12 +17,11 @@ import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract
 import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult
 import com.google.firebase.auth.FirebaseAuth
-import dk.itu.bachelor.voyager.ExperiencesByListFragment
-import dk.itu.bachelor.voyager.MainFragment
 import dk.itu.bachelor.voyager.R
 import dk.itu.bachelor.voyager.databinding.ActivityMainBinding
 import dk.itu.bachelor.voyager.models.VoyagerVM
 
+//relevant ift. når du sætter menuen: https://stackoverflow.com/questions/34011534/how-to-add-line-divider-for-menu-item-android
 class MainActivity : AppCompatActivity() {
 
     //Setting up authentication
@@ -36,48 +41,26 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
 
         //Initialize FireBase Auth.
         auth = FirebaseAuth.getInstance()
 
-        binding = ActivityMainBinding.inflate(layoutInflater)
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragment_container) as NavHostFragment
+        val navController = navHostFragment.navController
+        binding.bottomNavigation.setupWithNavController(navController)
 
-        // Get the latest fragment added in the fragment manager.
-        val currentFragment =
-            supportFragmentManager.findFragmentById(androidx.fragment.R.id.fragment_container_view_tag)
-
-        // Create the fragments instances.
-        if (currentFragment == null) {
-            viewModel.addFragment(MainFragment())
-            viewModel.addFragment(ExperiencesByListFragment())
-            viewModel.setFragment(0)
-        }
-
-        // Add the fragment into the activity.
-        for (fragment in viewModel.getFragmentList())
-            supportFragmentManager
-                .beginTransaction()
-                .add(R.id.fragment_container_view_tag, fragment)
-                .hide(fragment)
-                .commit()
-
-
-        // The current activity.
-        var activeFragment: Fragment = viewModel.fragmentState.value!!
-
-        // Execute this when the user sets a specific fragment.
-        viewModel.fragmentState.observe(this) { fragment ->
-            supportFragmentManager
-                .beginTransaction()
-                .hide(activeFragment)
-                .show(fragment)
-                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                .commit()
-            activeFragment = fragment
+        binding.bottomNavigation.setOnItemSelectedListener {
+            when(it.itemId) {
+                R.id.exploreFragment -> navController.navigate(R.id.exploreFragment)
+                R.id.itinerariesFragment -> navController.navigate(R.id.itinerariesFragment)
+                R.id.planFragment -> navController.navigate(R.id.planFragment)
+            }
+            true
         }
 
         setContentView(binding.root)
+
     }
 
     override fun onStart() {

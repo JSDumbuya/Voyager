@@ -3,6 +3,8 @@
     package="dk.itu.bachelor.voyager" xmlns:tools="http://schemas.android.com/tools">
 
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         android:name=".VoyagerApplication"
         android:allowBackup="true"

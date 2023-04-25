@@ -44,7 +44,7 @@ class MainFragment : Fragment() {
                 //Start the application
                 fm
                     .beginTransaction()
-                    .replace(R.id.fragment_container_view_tag, ExperiencesByListFragment())
+                    .replace(R.id.fragment_container, ExperiencesByListFragment())
                     .commit()
                 Log.d(TAG, "Database called")
             }
