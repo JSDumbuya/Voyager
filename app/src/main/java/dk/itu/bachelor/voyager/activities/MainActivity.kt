@@ -34,10 +34,4 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
     }
-
-    /*override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        with(item.itemId) {
-        }
-        return super.onOptionsItemSelected(item)
-    }*/
 }

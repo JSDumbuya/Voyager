@@ -8,4 +8,7 @@
     <string name="explore_label">Explore</string>
     <string name="sign_out_label">Sign Out</string>
     <string name="plan_your_trip_label">Plan Your Trip</string>
+    <string name="add_new_itinerary">Add new itinerary</string>
+    <string name="itinerary_name_text">Itinerary name</string>
+    <string name="itinerary_description_text">Itinerary description</string>
 </resources>
