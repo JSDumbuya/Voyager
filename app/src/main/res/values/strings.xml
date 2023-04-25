@@ -6,4 +6,7 @@
     <string name="rating">Placeholder rating</string>
     <string name="description">Placeholder description</string>
     <string name="picDesc">Picture of experience</string>
+    <string name="facebook_app_id">607307741284475</string>
+    <string name="fb_login_protocol_scheme">fb607307741284475</string>
+    <string name="facebook_client_token">ca1d6960b1978080b2a64dbcfe97816a</string>
 </resources>
