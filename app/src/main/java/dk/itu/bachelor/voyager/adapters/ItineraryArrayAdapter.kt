@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.firebase.ui.database.FirebaseRecyclerAdapter
 import com.firebase.ui.database.FirebaseRecyclerOptions
 import dk.itu.bachelor.voyager.databinding.ItineraryItemBinding
+import dk.itu.bachelor.voyager.fragments.ItinerariesFragment
 import dk.itu.bachelor.voyager.models.Itinerary
 import dk.itu.bachelor.voyager.utilities.ItineraryItemClickListener
 
