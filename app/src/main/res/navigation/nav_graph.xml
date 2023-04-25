@@ -24,6 +24,9 @@
         android:name="dk.itu.bachelor.voyager.fragments.ItinerariesFragment"
         android:label="@string/itineraries_label"
         tools:layout="@layout/fragment_itineraries">
+        <action
+            android:id="@+id/show_plan_your_trip"
+            app:destination="@id/planFragment" />
     </fragment>
 
 </navigation>

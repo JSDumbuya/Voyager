@@ -5,12 +5,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.firebase.ui.database.FirebaseRecyclerOptions
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import dk.itu.bachelor.voyager.R
 import dk.itu.bachelor.voyager.adapters.ItineraryArrayAdapter
 import dk.itu.bachelor.voyager.databinding.FragmentItinerariesBinding
 import dk.itu.bachelor.voyager.models.Itinerary
@@ -56,6 +58,10 @@ class ItinerariesFragment : Fragment(), ItineraryItemClickListener {
         super.onViewCreated(view, savedInstanceState)
 
         binding.apply {
+
+            fab.setOnClickListener {
+                findNavController().navigate(R.id.show_plan_your_trip)
+            }
 
             val query = database.child("itineraries")
                 .orderByChild("id")

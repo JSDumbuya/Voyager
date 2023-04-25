@@ -1,8 +1,8 @@
 package dk.itu.bachelor.voyager.models
 
 data class Itinerary(
-    var id: Number? = null,
-    var experiences: HashMap<String, List<Number>>? = null,
+    var id: Int? = null,
+    var experiences: HashMap<String, List<Int>>? = null,
     var name: String? = null,
     val userId: String? = null,
     var description: String? = null,
