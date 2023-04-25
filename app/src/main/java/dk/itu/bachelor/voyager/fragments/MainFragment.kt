@@ -1,14 +1,13 @@
-package dk.itu.bachelor.voyager
+package dk.itu.bachelor.voyager.fragments
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import dk.itu.bachelor.voyager.R
 import dk.itu.bachelor.voyager.databinding.FragmentMainBinding
-
-private const val TAG = "MainFragment"
 
 class MainFragment : Fragment() {
 
@@ -46,7 +45,7 @@ class MainFragment : Fragment() {
                     .beginTransaction()
                     .replace(R.id.fragment_container, ExperiencesByListFragment())
                     .commit()
-                Log.d(TAG, "Database called")
+                //Log.d(TAG, "Database called")
             }
         }
     }
