@@ -1,6 +1,6 @@
 package dk.itu.bachelor.voyager.interfaces
 
-interface ItemClickListener {
+interface ExperienceItemClickListener {
     interface ItemClickListener  {
 
         fun onItemClickListener(experiences: Any, position: Int)

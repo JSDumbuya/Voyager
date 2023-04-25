@@ -1,4 +1,4 @@
-package dk.itu.bachelor.voyager.utilities
+package dk.itu.bachelor.voyager.interfaces
 
 import dk.itu.bachelor.voyager.models.Itinerary
 

@@ -1,15 +1,13 @@
 package dk.itu.bachelor.voyager.adapters
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.firebase.ui.database.FirebaseRecyclerAdapter
 import com.firebase.ui.database.FirebaseRecyclerOptions
 import dk.itu.bachelor.voyager.databinding.ItineraryItemBinding
-import dk.itu.bachelor.voyager.fragments.ItinerariesFragment
 import dk.itu.bachelor.voyager.models.Itinerary
-import dk.itu.bachelor.voyager.utilities.ItineraryItemClickListener
+import dk.itu.bachelor.voyager.interfaces.ItineraryItemClickListener
 
 class ItineraryArrayAdapter (private val itemClickListener: ItineraryItemClickListener, options: FirebaseRecyclerOptions<Itinerary>):
     FirebaseRecyclerAdapter<Itinerary, ItineraryArrayAdapter.ViewHolder>(options) {

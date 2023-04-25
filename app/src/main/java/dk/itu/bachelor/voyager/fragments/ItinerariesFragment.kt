@@ -17,7 +17,7 @@ import dk.itu.bachelor.voyager.adapters.ItineraryArrayAdapter
 import dk.itu.bachelor.voyager.databinding.FragmentItinerariesBinding
 import dk.itu.bachelor.voyager.models.Itinerary
 import dk.itu.bachelor.voyager.utilities.DATABASE_URL
-import dk.itu.bachelor.voyager.utilities.ItineraryItemClickListener
+import dk.itu.bachelor.voyager.interfaces.ItineraryItemClickListener
 
 class ItinerariesFragment : Fragment(), ItineraryItemClickListener {
 

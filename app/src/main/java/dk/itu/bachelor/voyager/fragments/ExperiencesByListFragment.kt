@@ -12,7 +12,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
-import dk.itu.bachelor.voyager.DATABASE_URL
+import dk.itu.bachelor.voyager.utilities.DATABASE_URL
 import dk.itu.bachelor.voyager.adapters.ExperienceArrayAdapter
 import dk.itu.bachelor.voyager.databinding.FragmentExperiencesByListBinding
 import dk.itu.bachelor.voyager.models.Experience
