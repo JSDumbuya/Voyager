@@ -2,7 +2,7 @@
     <string name="app_name">Voyager</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="experience_title">Placeholder title</string>
+    <string name="placeholder_title">Placeholder title</string>
     <string name="rating">Placeholder rating</string>
     <string name="description">Placeholder description</string>
     <string name="picDesc">Picture of experience</string>
@@ -19,4 +19,8 @@
     <string name="add_new_itinerary">Add new itinerary</string>
     <string name="itinerary_name_text">Itinerary name</string>
     <string name="itinerary_description_text">Itinerary description</string>
+    <string name="norrebro_label">Nørrebro</string>
+    <string name="osterbro_label">Østerbro</string>
+    <string name="osterbro_description">Welcome to Østerbro! A cozy and family-friendly neigbourhood located in the northeastern part of Copenhagen. Østerbro is the home of the little mermaid, and Fælledparken - the largest parks in the city. If you are looking for a place to stay that is both central and more on the quiet side, Østerbro is the place for you. Great shopping opportunities and green areas, and with the inner city just 10 minutes away on your bicycle! Scroll down to see some photos.</string>
+    <string name="norrebro_description">Nørrebro is known to many as the hippest district in Copenhagen, and is located between Østerbro and Frederiksberg. Nørrebro is a cultural melting pot with restaurants from all corners of the world. It is generally less gentrified than other areas of Copenhagen, housing many independent and unique shops, cafés and restaurants. This area is recommended for both families, couples and solo travellers. Some famous places to see are the Assitant’s cemetery and Queen Louise’s bridge, which connects Nørrebro and Indre By.</string>
 </resources>

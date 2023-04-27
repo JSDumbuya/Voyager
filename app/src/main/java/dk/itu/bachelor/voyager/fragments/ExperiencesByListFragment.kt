@@ -61,6 +61,7 @@ class ExperiencesByListFragment : Fragment() {
         database.keepSynced(true)
 
 
+
         // Create the search query.
         val query = database.child("experiences")
 

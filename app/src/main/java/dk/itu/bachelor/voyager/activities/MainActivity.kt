@@ -3,19 +3,12 @@ package dk.itu.bachelor.voyager.activities
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.MenuItem
-import androidx.core.view.get
-import androidx.navigation.findNavController
+import android.view.View
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import android.widget.Toast
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProvider
-import com.firebase.ui.auth.AuthUI
-import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract
-import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult
+import androidx.navigation.NavDestination
 import com.google.firebase.auth.FirebaseAuth
 import dk.itu.bachelor.voyager.R
 import dk.itu.bachelor.voyager.databinding.ActivityMainBinding
@@ -29,6 +22,7 @@ class MainActivity : AppCompatActivity() {
 
     //View binding for MainActivity
     private lateinit var binding: ActivityMainBinding
+
 
     /**
      * Using lazy initialization to create the view model instance when the user access the object
@@ -48,19 +42,49 @@ class MainActivity : AppCompatActivity() {
 
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragment_container) as NavHostFragment
         val navController = navHostFragment.navController
-        binding.bottomNavigation.setupWithNavController(navController)
 
-        binding.bottomNavigation.setOnItemSelectedListener {
-            when(it.itemId) {
-                R.id.exploreFragment -> navController.navigate(R.id.exploreFragment)
-                R.id.itinerariesFragment -> navController.navigate(R.id.itinerariesFragment)
-                R.id.planFragment -> navController.navigate(R.id.planFragment)
+        with(binding){
+            bottomNavigation.setupWithNavController(navController)
+
+            bottomNavigation.setOnItemSelectedListener {
+                when(it.itemId) {
+                    R.id.exploreFragment -> navController.navigate(R.id.exploreFragment)
+                    R.id.itinerariesFragment -> navController.navigate(R.id.itinerariesFragment)
+                    R.id.planFragment -> navController.navigate(R.id.planFragment)
+                    R.id.osterbroFragment -> navController.navigate(R.id.osterbroFragment)
+                    R.id.norrebroFragment -> navController.navigate(R.id.norrebroFragment)
+                }
+                true
             }
-            true
+
+
+            navController.addOnDestinationChangedListener{_, nd: NavDestination, _->
+                if(nd.id == R.id.experiFrag) {
+                    bottomNavigation.visibility = View.GONE
+                } else if(nd.id == R.id.osterbroFragment || nd.id == R.id.norrebroFragment) {
+                    bottomNavigation.menu.findItem(R.id.exploreFragment).setVisible(false)
+                    bottomNavigation.menu.findItem(R.id.planFragment).setVisible(false)
+                    bottomNavigation.menu.findItem(R.id.itinerariesFragment).setVisible(false)
+                    bottomNavigation.menu.findItem(R.id.norrebroFragment).setVisible(true)
+                    bottomNavigation.menu.findItem(R.id.osterbroFragment).setVisible(true)
+                } else {
+                    bottomNavigation.visibility = View.VISIBLE
+                }
+            }
+
+            topAppBar.setupWithNavController(navController)
+
+            topAppBar.setOnMenuItemClickListener {
+                when(it.itemId) {
+                    R.id.explore -> navController.navigate(R.id.exploreFragment)
+                    R.id.itineraries -> navController.navigate(R.id.itinerariesFragment)
+                    R.id.att_by_list -> navController.navigate(R.id.experiFrag)
+                    R.id.neighborhoods -> navController.navigate(R.id.osterbroFragment)
+                }
+                true
+            }
         }
-
         setContentView(binding.root)
-
     }
 
     override fun onStart() {
