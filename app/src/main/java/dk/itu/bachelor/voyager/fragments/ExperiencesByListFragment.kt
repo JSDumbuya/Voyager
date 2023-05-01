@@ -74,15 +74,16 @@ class ExperiencesByListFragment : Fragment() {
 
 
         adapter = ExperienceArrayAdapter(this, options)
+        with(binding){
+            recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
-        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
+            recyclerView.addItemDecoration(
+                DividerItemDecoration(context, DividerItemDecoration.VERTICAL)
+            )
 
-        binding.recyclerView.addItemDecoration(
-            DividerItemDecoration(context, DividerItemDecoration.VERTICAL)
-        )
+            recyclerView.adapter = adapter
+        }
 
-
-        binding.recyclerView.adapter = adapter
 
         return binding.root
 

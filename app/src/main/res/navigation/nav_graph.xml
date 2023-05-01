@@ -7,9 +7,9 @@
 
     <fragment
         android:id="@+id/exploreFragment"
-        android:name="dk.itu.bachelor.voyager.fragments.ExploreFragment"
+        android:name="dk.itu.bachelor.voyager.fragments.MapsFragment"
         android:label="@string/explore_label"
-        tools:layout="@layout/fragment_explore">
+        tools:layout="@layout/fragment_maps">
     </fragment>
 
     <fragment
