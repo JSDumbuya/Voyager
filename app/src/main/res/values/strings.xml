@@ -9,7 +9,6 @@
     <string name="facebook_app_id">607307741284475</string>
     <string name="fb_login_protocol_scheme">fb607307741284475</string>
     <string name="facebook_client_token">ca1d6960b1978080b2a64dbcfe97816a</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="att_by_list_label">Attractions By List</string>
     <string name="neighborhoods_label">Neighborhoods</string>
     <string name="itineraries_label">Itineraries</string>
@@ -19,4 +18,14 @@
     <string name="add_new_itinerary">Add new itinerary</string>
     <string name="itinerary_name_text">Itinerary name</string>
     <string name="itinerary_description_text">Itinerary description</string>
+    <string name="itineray_name_text">%s</string>
+    <string name="itinerary_view_description_text">%s</string>
+    <string name="itinery_view_notes">%s</string>
+    <string name="begin_route_button">Begin Route</string>
+    <string name="close_button_text">Close</string>
+    <string name="time_text">%s \n AM</string>
+    <string name="experience_title_text">%s</string>
+    <string name="address_text">%s</string>
+    <string name="day_text">%s</string>
+    <string name="view_itinerary_label">View Itinerary</string>
 </resources>

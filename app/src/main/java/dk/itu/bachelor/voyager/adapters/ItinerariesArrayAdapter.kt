@@ -9,8 +9,8 @@ import dk.itu.bachelor.voyager.databinding.ItineraryItemBinding
 import dk.itu.bachelor.voyager.models.Itinerary
 import dk.itu.bachelor.voyager.interfaces.ItineraryItemClickListener
 
-class ItineraryArrayAdapter (private val itemClickListener: ItineraryItemClickListener, options: FirebaseRecyclerOptions<Itinerary>):
-    FirebaseRecyclerAdapter<Itinerary, ItineraryArrayAdapter.ViewHolder>(options) {
+class ItinerariesArrayAdapter (private val itemClickListener: ItineraryItemClickListener, options: FirebaseRecyclerOptions<Itinerary>):
+    FirebaseRecyclerAdapter<Itinerary, ItinerariesArrayAdapter.ViewHolder>(options) {
 
     inner class ViewHolder(private val binding: ItineraryItemBinding): RecyclerView.ViewHolder(binding.root) {
 
