@@ -18,6 +18,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
 import com.google.android.gms.maps.*
+import com.google.android.gms.maps.OnMapsSdkInitializedCallback
 
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker

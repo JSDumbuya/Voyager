@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "929797621123",
+    "firebase_url": "https://voyager-bf0a9-default-rtdb.europe-west1.firebasedatabase.app",
     "project_id": "voyager-bf0a9",
     "storage_bucket": "voyager-bf0a9.appspot.com"
   },
@@ -22,7 +23,15 @@
           }
         },
         {
-          "client_id": "929797621123-8ph8v9l13asd3p2mm8b6qgjldvltc6e6.apps.googleusercontent.com",
+          "client_id": "929797621123-g9skto3hrkbt19cv9r832a8kphh03v5r.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "dk.itu.bachelor.voyager",
+            "certificate_hash": "2844f9f5e67aea2a0998cb56d79321a8f05d4eb5"
+          }
+        },
+        {
+          "client_id": "929797621123-tabljunmog08e9nlkdiavpsocp2gfhmn.apps.googleusercontent.com",
           "client_type": 3
         }
       ],

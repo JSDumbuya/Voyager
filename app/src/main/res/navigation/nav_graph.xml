@@ -50,4 +50,12 @@
         tools:layout="@layout/fragment_experiences_by_list">
     </fragment>
 
+    <fragment
+        android:id="@+id/experienceElement"
+        android:name="dk.itu.bachelor.voyager.fragments.ExperienceElementFragment"
+        android:label="@string/experience"
+        tools:layout="@layout/fragment_experience_element">
+    </fragment>
+
+
 </navigation>

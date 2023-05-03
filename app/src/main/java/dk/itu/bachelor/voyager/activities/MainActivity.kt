@@ -14,6 +14,7 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavDestination
+import com.firebase.ui.auth.AuthUI
 import com.google.android.gms.location.*
 import com.google.firebase.auth.FirebaseAuth
 import dk.itu.bachelor.voyager.R
@@ -80,11 +81,13 @@ class MainActivity : AppCompatActivity() {
                 true
             }
 
-
+            /**Logic for the bottom navigation menu, should be hidden for "Attractions by list",
+             * and show different options for different pages */
             navController.addOnDestinationChangedListener{_, nd: NavDestination, _->
-                if(nd.id == R.id.experiFrag) {
+                if(nd.id == R.id.experiFrag || nd.id == R.id.experienceElement) {
                     bottomNavigation.visibility = View.GONE
                 } else if(nd.id == R.id.osterbroFragment || nd.id == R.id.norrebroFragment) {
+                    bottomNavigation.visibility = View.VISIBLE
                     bottomNavigation.menu.findItem(R.id.exploreFragment).setVisible(false)
                     bottomNavigation.menu.findItem(R.id.planFragment).setVisible(false)
                     bottomNavigation.menu.findItem(R.id.itinerariesFragment).setVisible(false)
@@ -92,6 +95,11 @@ class MainActivity : AppCompatActivity() {
                     bottomNavigation.menu.findItem(R.id.osterbroFragment).setVisible(true)
                 } else {
                     bottomNavigation.visibility = View.VISIBLE
+                    bottomNavigation.menu.findItem(R.id.exploreFragment).setVisible(true)
+                    bottomNavigation.menu.findItem(R.id.planFragment).setVisible(true)
+                    bottomNavigation.menu.findItem(R.id.itinerariesFragment).setVisible(true)
+                    bottomNavigation.menu.findItem(R.id.norrebroFragment).setVisible(false)
+                    bottomNavigation.menu.findItem(R.id.osterbroFragment).setVisible(false)
                 }
             }
 
@@ -103,11 +111,13 @@ class MainActivity : AppCompatActivity() {
                     R.id.itineraries -> navController.navigate(R.id.itinerariesFragment)
                     R.id.att_by_list -> navController.navigate(R.id.experiFrag)
                     R.id.neighborhoods -> navController.navigate(R.id.osterbroFragment)
+                    R.id.sign_out -> AuthUI.getInstance().signOut(applicationContext).addOnCompleteListener{
+                        startLoginActivity()
+                    }
                 }
                 true
             }
         }
-
         // Start the location-aware method.
         startLocationAware()
 
