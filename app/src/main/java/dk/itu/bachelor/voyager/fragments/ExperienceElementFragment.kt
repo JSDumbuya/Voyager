@@ -17,7 +17,7 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import dk.itu.bachelor.voyager.databinding.FragmentExperienceElementBinding
 import dk.itu.bachelor.voyager.utilities.DATABASE_URL
-
+import kotlinx.coroutines.tasks.await
 
 
 class ExperienceElementFragment : Fragment() {
@@ -60,7 +60,7 @@ class ExperienceElementFragment : Fragment() {
             name.addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                     val info = dataSnapshot.getValue(String::class.java)
-                    binding.title.setText(info)
+                    binding.title.text = info
                 }
 
                 override fun onCancelled(error: DatabaseError) {
@@ -87,7 +87,7 @@ class ExperienceElementFragment : Fragment() {
             description.addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                     val info = dataSnapshot.getValue(String::class.java)
-                    binding.description.setText(info)
+                    binding.description.text = info
                 }
 
                 override fun onCancelled(error: DatabaseError) {
@@ -95,7 +95,14 @@ class ExperienceElementFragment : Fragment() {
                 }
             })
 
-            /*val picture = database.child("experiences/$itemId/pictureUrls/0")
+            val picture = database.child("experiences/$itemId/pictureUrls/0")
+
+            /*database.child("experiences/$itemId/pictureUrls/0")
+                .get().getValue(String::class.java)?.let { url ->
+                    Glide.with(requireActivity())
+                        .load(url)
+                        .into(binding.exphoto)
+                }*/
 
             //val storageRef = Firebase.storage.reference
             //val imageRef = storageRef.child("experiences/$itemId/pictureUrls/0")
@@ -111,7 +118,7 @@ class ExperienceElementFragment : Fragment() {
                 override fun onCancelled(error: DatabaseError) {
                     Log.w(ContentValues.TAG, "Failed to read value.", error.toException())
                 }
-            })*/
+            })
         }
     }
 

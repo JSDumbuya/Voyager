@@ -64,7 +64,6 @@ class MapsFragment : Fragment(), OnMapsSdkInitializedCallback, View.OnClickListe
         _binding = FragmentMapsBinding.inflate(inflater, container, false)
 
 
-
         return binding.root
     }
 
