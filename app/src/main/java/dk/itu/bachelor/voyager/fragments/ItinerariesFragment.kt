@@ -13,7 +13,7 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import dk.itu.bachelor.voyager.R
-import dk.itu.bachelor.voyager.adapters.ItineraryArrayAdapter
+import dk.itu.bachelor.voyager.adapters.ItinerariesArrayAdapter
 import dk.itu.bachelor.voyager.databinding.FragmentItinerariesBinding
 import dk.itu.bachelor.voyager.models.Itinerary
 import dk.itu.bachelor.voyager.utilities.DATABASE_URL
@@ -76,12 +76,19 @@ class ItinerariesFragment : Fragment(), ItineraryItemClickListener {
                 DividerItemDecoration(context, DividerItemDecoration.VERTICAL)
             )
 
-            listItinerariesView.adapter = ItineraryArrayAdapter(this@ItinerariesFragment, options)
+            listItinerariesView.adapter = ItinerariesArrayAdapter(this@ItinerariesFragment, options)
         }
     }
 
     override fun onItemClickListener(itenerary: Itinerary, position: Int) {
-        TODO("Not yet implemented")
+        val bundle = Bundle()
+
+        itenerary.id?.let {
+            bundle.putString("itemId", it.toString())
+        }
+
+        findNavController().navigate(R.id.viewItineraryFragment, bundle)
+
     }
 
 

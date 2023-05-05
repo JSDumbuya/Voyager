@@ -13,6 +13,16 @@
     </fragment>
 
     <fragment
+        android:id="@+id/viewItineraryFragment"
+        android:name="dk.itu.bachelor.voyager.fragments.ViewItineraryFragment"
+        android:label="@string/view_itinerary_label"
+        tools:layout="@layout/fragment_view_itinerary">
+        <action
+            android:id="@+id/show_itineraries"
+            app:destination="@id/itinerariesFragment" />
+    </fragment>
+
+    <fragment
         android:id="@+id/planFragment"
         android:name="dk.itu.bachelor.voyager.fragments.PlanYourTripFragment"
         android:label="@string/plan_your_trip_label"
