@@ -8,6 +8,7 @@ plugins {
 }
 
 android {
+    namespace 'dk.itu.bachelor.voyager'
     compileSdk 33
 
     defaultConfig {
@@ -73,5 +74,5 @@ dependencies {
     implementation 'com.facebook.android:facebook-login:latest.release'
     implementation 'androidx.work:work-runtime:2.8.1'
     implementation 'com.google.maps:google-maps-services:0.17.0'
-    kapt 'com.github.bumptech.glide:compiler:4.12.0'
+    implementation "androidx.browser:browser:1.5.0"
 }
