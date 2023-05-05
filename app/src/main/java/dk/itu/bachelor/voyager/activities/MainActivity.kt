@@ -16,10 +16,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavDestination
 import com.firebase.ui.auth.AuthUI
 import com.google.android.gms.location.*
-import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.setupWithNavController
-import android.widget.Toast
-import androidx.lifecycle.ViewModelProvider
 import com.google.firebase.auth.FirebaseAuth
 import dk.itu.bachelor.voyager.R
 import dk.itu.bachelor.voyager.databinding.ActivityMainBinding
