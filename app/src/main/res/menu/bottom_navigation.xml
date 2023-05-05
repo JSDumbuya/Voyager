@@ -19,4 +19,17 @@
         app:showAsAction="always"
         android:title="@string/itineraries_label"/>
 
+    <item
+        android:id="@+id/osterbroFragment"
+        app:showAsAction="always"
+        android:visible="false"
+        android:title="@string/osterbro_label"/>
+
+    <item
+        android:id="@+id/norrebroFragment"
+        app:showAsAction="always"
+        android:visible="false"
+        android:title="@string/norrebro_label"/>
+
+
 </menu>

@@ -7,9 +7,9 @@
 
     <fragment
         android:id="@+id/exploreFragment"
-        android:name="dk.itu.bachelor.voyager.fragments.ExploreFragment"
+        android:name="dk.itu.bachelor.voyager.fragments.MapsFragment"
         android:label="@string/explore_label"
-        tools:layout="@layout/fragment_explore">
+        tools:layout="@layout/fragment_maps">
     </fragment>
 
     <fragment
@@ -38,5 +38,34 @@
             android:id="@+id/show_plan_your_trip"
             app:destination="@id/planFragment" />
     </fragment>
+
+    <fragment
+        android:id="@+id/osterbroFragment"
+        android:name="dk.itu.bachelor.voyager.fragments.OsterbroFragment"
+        android:label="@string/neighborhoods_label"
+        tools:layout="@layout/fragment_osterbro">
+    </fragment>
+
+    <fragment
+        android:id="@+id/norrebroFragment"
+        android:name="dk.itu.bachelor.voyager.fragments.NorrebroFragment"
+        android:label="@string/neighborhoods_label"
+        tools:layout="@layout/fragment_norrebro">
+    </fragment>
+
+    <fragment
+        android:id="@+id/experiFrag"
+        android:name="dk.itu.bachelor.voyager.fragments.ExperiencesByListFragment"
+        android:label="@string/att_by_list_label"
+        tools:layout="@layout/fragment_experiences_by_list">
+    </fragment>
+
+    <fragment
+        android:id="@+id/experienceElement"
+        android:name="dk.itu.bachelor.voyager.fragments.ExperienceElementFragment"
+        android:label="@string/experience"
+        tools:layout="@layout/fragment_experience_element">
+    </fragment>
+
 
 </navigation>

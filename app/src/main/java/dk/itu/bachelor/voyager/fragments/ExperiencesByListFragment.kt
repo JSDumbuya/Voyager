@@ -1,10 +1,12 @@
 package dk.itu.bachelor.voyager.fragments
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.firebase.ui.database.FirebaseRecyclerOptions
@@ -12,6 +14,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import dk.itu.bachelor.voyager.R
 import dk.itu.bachelor.voyager.utilities.DATABASE_URL
 import dk.itu.bachelor.voyager.adapters.ExperienceArrayAdapter
 import dk.itu.bachelor.voyager.databinding.FragmentExperiencesByListBinding
@@ -41,6 +44,7 @@ class ExperiencesByListFragment : Fragment() {
 
     companion object {
         private lateinit var adapter: ExperienceArrayAdapter
+        private val TAG = ExperiencesByListFragment::class.qualifiedName
     }
 
     override fun onCreateView(
@@ -49,7 +53,7 @@ class ExperiencesByListFragment : Fragment() {
     ): View? {
 
 
-       //Binding between layout and fragment
+        //Binding between layout and fragment
         _binding = FragmentExperiencesByListBinding.inflate(layoutInflater)
 
         //Initialize FireBase Auth.
@@ -74,17 +78,17 @@ class ExperiencesByListFragment : Fragment() {
 
         adapter = ExperienceArrayAdapter(this, options)
 
-        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        with(binding){
+            recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
-        binding.recyclerView.addItemDecoration(
-            DividerItemDecoration(context, DividerItemDecoration.VERTICAL)
-        )
+            recyclerView.addItemDecoration(
+                DividerItemDecoration(context, DividerItemDecoration.VERTICAL)
+            )
 
+            recyclerView.adapter = adapter
 
-        binding.recyclerView.adapter = adapter
-
-        return binding.root
-
+            return root
+        }
     }
 
     override fun onDestroyView() {
@@ -96,8 +100,14 @@ class ExperiencesByListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
     }
 
-    fun onItemClickListener(experience: Experience , position: Int) {
-        TODO("Not yet implemented")
-    }
+    fun onItemClickListener(experience: Experience, position: Int) {
+        val bundle = Bundle()
+        Log.i(TAG, "Open " + experience.name)
 
+        experience.id?.let {
+            bundle.putString("experienceId", it.toString())
+        }
+        findNavController().navigate(R.id.experienceElement, bundle)
+
+    }
 }
