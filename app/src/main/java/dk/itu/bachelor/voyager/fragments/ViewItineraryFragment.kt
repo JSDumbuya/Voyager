@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -23,6 +24,7 @@ import dk.itu.bachelor.voyager.models.ViewedItinerary
 import dk.itu.bachelor.voyager.utilities.DATABASE_URL
 import dk.itu.bachelor.voyager.utilities.DateUtilities.generateRandomTimestamp
 import dk.itu.bachelor.voyager.utilities.LocationUtilities
+import kotlin.math.log
 
 
 class ViewItineraryFragment : Fragment() {
@@ -113,9 +115,10 @@ class ViewItineraryFragment : Fragment() {
                     val data = dataSnapshot.value as HashMap<String, List<Int>>
 
                     for ((key, value) in data) {
-                        val viewedItinerary = ViewedItinerary()
                         for (v in value) {
+                            val viewedItinerary = ViewedItinerary()
                             viewedItinerary.day = key
+                            //Log.d("itinerary", "Day:" + viewedItinerary.day)
                             val experienceId = v.toString()
 
                             val expname = database.child("experiences/$experienceId/name")
@@ -123,6 +126,8 @@ class ViewItineraryFragment : Fragment() {
                                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                                     val infoname = dataSnapshot.getValue(String::class.java)
                                     viewedItinerary.experienceTitle = infoname
+                                    //Log.d("itinerary", "ExperienceTitle:" + viewedItinerary.experienceTitle)
+
                                 }
 
                                 override fun onCancelled(error: DatabaseError) {
@@ -136,6 +141,7 @@ class ViewItineraryFragment : Fragment() {
                                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                                     val infolat = dataSnapshot.getValue(Double::class.java)
                                     viewedItinerary.lat = infolat
+                                    //Log.d("itinerary", "Lat:" + viewedItinerary.lat)
                                 }
 
                                 override fun onCancelled(error: DatabaseError) {
@@ -147,6 +153,7 @@ class ViewItineraryFragment : Fragment() {
                                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                                     val infolon = dataSnapshot.getValue(Double::class.java)
                                     viewedItinerary.lon = infolon
+                                    //Log.d("itinerary", "Lon:" + viewedItinerary.lon)
                                 }
 
                                 override fun onCancelled(error: DatabaseError) {
@@ -158,17 +165,28 @@ class ViewItineraryFragment : Fragment() {
                                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                                     val infoOpen = dataSnapshot.getValue(String::class.java)
                                     viewedItinerary.open = infoOpen
+                                    //Log.d("itinerary", "OpenTime:" + viewedItinerary.open)
                                 }
 
                                 override fun onCancelled(error: DatabaseError) {
                                     Log.w(TAG, "Failed to read value.", error.toException())
                                 }
                             })
-                            val expClose = database.child("experiences/$experienceId/ClosingTime")
+                            val expClose = database.child("experiences/$experienceId/closingTime")
+
                             expClose.addValueEventListener(object : ValueEventListener {
                                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                                     val infoClosed = dataSnapshot.getValue(String::class.java)
                                     viewedItinerary.closed = infoClosed
+                                    //Log.d("itinerary", "ClosingTime:" + viewedItinerary.closed)
+                                    viewedItinerarylist.add(viewedItinerary)
+                                    binding.listItinerary.layoutManager = LinearLayoutManager(requireContext())
+                                    binding.listItinerary.addItemDecoration(
+                                        DividerItemDecoration(context, LinearLayoutManager.VERTICAL)
+                                    )
+
+                                    binding.listItinerary.adapter =
+                                        context?.let { ViewItineraryArrayAdapter(it, viewedItinerarylist) }
                                 }
 
                                 override fun onCancelled(error: DatabaseError) {
@@ -176,39 +194,10 @@ class ViewItineraryFragment : Fragment() {
                                 }
                             })
 
-                            viewedItinerary.lat?.let { lat ->
-                                viewedItinerary.lon?.let { lon ->
-                                    viewedItinerary.address =
-                                        LocationUtilities.getAddress(requireContext(), lat, lon)
-                                }
-                            }
-
-                            /*val latCoord = viewedItinerary.lat
-                            val lonCoord = viewedItinerary.lon
-                            LocationUtilities.getAddress(requireContext(), latCoord, lonCoord)*/
-
-                            viewedItinerary.time =
-                                viewedItinerary.open?.let {
-                                    viewedItinerary.closed?.let { it1 ->
-                                        generateRandomTimestamp(
-                                            it,
-                                            it1
-                                        ).toString()
-                                    }
-                                }
-
-                            viewedItinerarylist.add(viewedItinerary)
                         }
 
 
                     }
-
-
-                    binding.listItinerary.layoutManager = LinearLayoutManager(requireContext())
-                    binding.listItinerary.addItemDecoration(
-                        DividerItemDecoration(context, LinearLayoutManager.VERTICAL)
-                    )
-                    binding.listItinerary.adapter = ViewItineraryArrayAdapter(viewedItinerarylist)
 
                 }
 
