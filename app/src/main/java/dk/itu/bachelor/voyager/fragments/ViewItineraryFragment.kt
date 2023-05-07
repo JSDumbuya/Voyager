@@ -20,6 +20,8 @@ import com.google.firebase.ktx.Firebase
 import dk.itu.bachelor.voyager.R
 import dk.itu.bachelor.voyager.adapters.ViewItineraryArrayAdapter
 import dk.itu.bachelor.voyager.databinding.FragmentViewItineraryBinding
+import dk.itu.bachelor.voyager.models.Experience
+import dk.itu.bachelor.voyager.models.Itinerary
 import dk.itu.bachelor.voyager.models.ViewedItinerary
 import dk.itu.bachelor.voyager.utilities.DATABASE_URL
 import dk.itu.bachelor.voyager.utilities.DateUtilities.generateRandomTimestamp
@@ -56,10 +58,6 @@ class ViewItineraryFragment : Fragment() {
 
         binding.closeButton.setOnClickListener {
             findNavController().navigate(R.id.show_itineraries)
-        }
-
-        binding.beginRouteButton.setOnClickListener {
-            throw NotImplementedError()
         }
 
         var viewedItinerarylist = mutableListOf <ViewedItinerary>()
@@ -108,108 +106,66 @@ class ViewItineraryFragment : Fragment() {
             })
 
 
-            val experiences = database.child("itineraries/$itemId/experiences")
+            val itineraryRef = database.child("itineraries/$itemId/experiences")
 
-            experiences.addValueEventListener(object : ValueEventListener {
+            itineraryRef.addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
-                    val data = dataSnapshot.value as HashMap<String, List<Int>>
+                    val itinerary = dataSnapshot.getValue(Itinerary::class.java)
+                    if (itinerary != null) {
+                        val experiences = itinerary.experiences
 
-                    for ((key, value) in data) {
-                        for (v in value) {
-                            val viewedItinerary = ViewedItinerary()
-                            viewedItinerary.day = key
-                            //Log.d("itinerary", "Day:" + viewedItinerary.day)
-                            val experienceId = v.toString()
+                        val viewedItineraryList = mutableListOf<ViewedItinerary>()
+                        val adapter = context?.let { ViewItineraryArrayAdapter(it, viewedItineraryList) }
+                        binding.listItinerary.adapter = adapter
 
-                            val expname = database.child("experiences/$experienceId/name")
-                            expname.addValueEventListener(object : ValueEventListener {
-                                override fun onDataChange(dataSnapshot: DataSnapshot) {
-                                    val infoname = dataSnapshot.getValue(String::class.java)
-                                    viewedItinerary.experienceTitle = infoname
-                                    //Log.d("itinerary", "ExperienceTitle:" + viewedItinerary.experienceTitle)
+                        experiences?.forEach { (day, experienceIds) ->
+                            // Iterate over each experience ID and fetch the corresponding Experience data
+                            experienceIds.forEach { experienceId ->
+                                // Query the database for the Experience item
+                                val experienceRef = database.child("experiences/$experienceId")
 
-                                }
+                                experienceRef.addListenerForSingleValueEvent(object : ValueEventListener {
+                                    override fun onDataChange(dataSnapshot: DataSnapshot) {
+                                        val experience = dataSnapshot.getValue(Experience::class.java)
+                                        if (experience != null) {
+                                            // Create a new ViewedItinerary item and populate its data
+                                            val viewedItinerary = ViewedItinerary(
+                                                address = null,
+                                                lat = experience.lat,
+                                                lon = experience.lon,
+                                                day = day,
+                                                open = experience.openTime,
+                                                closed = experience.closingTime,
+                                                time = null,
+                                                experienceTitle = experience.name
+                                            )
+                                            // Add the ViewedItinerary item to the list
+                                            viewedItineraryList.add(viewedItinerary)
+                                            // Update the adapter with the new list of items
+                                            adapter?.notifyDataSetChanged()
+                                        }
+                                    }
 
-                                override fun onCancelled(error: DatabaseError) {
-                                    Log.w(TAG, "Failed to read value.", error.toException())
-                                }
-                            })
-
-
-                            val explat = database.child("experiences/$experienceId/lat")
-                            explat.addValueEventListener(object : ValueEventListener {
-                                override fun onDataChange(dataSnapshot: DataSnapshot) {
-                                    val infolat = dataSnapshot.getValue(Double::class.java)
-                                    viewedItinerary.lat = infolat
-                                    //Log.d("itinerary", "Lat:" + viewedItinerary.lat)
-                                }
-
-                                override fun onCancelled(error: DatabaseError) {
-                                    Log.w(TAG, "Failed to read value.", error.toException())
-                                }
-                            })
-                            val explon = database.child("experiences/$experienceId/lon")
-                            explon.addValueEventListener(object : ValueEventListener {
-                                override fun onDataChange(dataSnapshot: DataSnapshot) {
-                                    val infolon = dataSnapshot.getValue(Double::class.java)
-                                    viewedItinerary.lon = infolon
-                                    //Log.d("itinerary", "Lon:" + viewedItinerary.lon)
-                                }
-
-                                override fun onCancelled(error: DatabaseError) {
-                                    Log.w(TAG, "Failed to read value.", error.toException())
-                                }
-                            })
-                            val expOpen = database.child("experiences/$experienceId/openTime")
-                            expOpen.addValueEventListener(object : ValueEventListener {
-                                override fun onDataChange(dataSnapshot: DataSnapshot) {
-                                    val infoOpen = dataSnapshot.getValue(String::class.java)
-                                    viewedItinerary.open = infoOpen
-                                    //Log.d("itinerary", "OpenTime:" + viewedItinerary.open)
-                                }
-
-                                override fun onCancelled(error: DatabaseError) {
-                                    Log.w(TAG, "Failed to read value.", error.toException())
-                                }
-                            })
-                            val expClose = database.child("experiences/$experienceId/closingTime")
-
-                            expClose.addValueEventListener(object : ValueEventListener {
-                                override fun onDataChange(dataSnapshot: DataSnapshot) {
-                                    val infoClosed = dataSnapshot.getValue(String::class.java)
-                                    viewedItinerary.closed = infoClosed
-                                    //Log.d("itinerary", "ClosingTime:" + viewedItinerary.closed)
-                                    viewedItinerarylist.add(viewedItinerary)
-                                    binding.listItinerary.layoutManager = LinearLayoutManager(requireContext())
-                                    binding.listItinerary.addItemDecoration(
-                                        DividerItemDecoration(context, LinearLayoutManager.VERTICAL)
-                                    )
-
-                                    binding.listItinerary.adapter =
-                                        context?.let { ViewItineraryArrayAdapter(it, viewedItinerarylist) }
-                                }
-
-                                override fun onCancelled(error: DatabaseError) {
-                                    Log.w(TAG, "Failed to read value.", error.toException())
-                                }
-                            })
-
+                                    override fun onCancelled(databaseError: DatabaseError) {
+                                        // Handle any errors that occur during the database query
+                                    }
+                                })
+                            }
                         }
-
-
+                    } else {
+                        // Handle the case when itinerary is null or not found
                     }
-
                 }
 
-                override fun onCancelled(error: DatabaseError) {
-                    Log.w(TAG, "Failed to read value.", error.toException())
+                override fun onCancelled(databaseError: DatabaseError) {
+                    Log.w(TAG, "Failed to read value.", databaseError.toException())
                 }
             })
+
         }
 
 
     }
-
 
 
 }
