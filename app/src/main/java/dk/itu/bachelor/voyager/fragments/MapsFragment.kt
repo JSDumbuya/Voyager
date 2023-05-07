@@ -62,8 +62,6 @@ class MapsFragment : Fragment(), OnMapsSdkInitializedCallback, View.OnClickListe
     ): View? {
         // Inflate the layout for this fragment
         _binding = FragmentMapsBinding.inflate(inflater, container, false)
-
-
         return binding.root
     }
 
