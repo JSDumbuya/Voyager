@@ -34,4 +34,14 @@
     <string name="address_text">%s</string>
     <string name="day_text">%s</string>
     <string name="view_itinerary_label">View Itinerary</string>
+    <string name="romantic_label">Romantic</string>
+    <string name="child_friendly_label">Child Friendly</string>
+    <string name="popular_label">Popular</string>
+    <string name="unique_label">Unique</string>
+    <string name="local_label">Local</string>
+    <string name="active_label">Active</string>
+    <string name="culture_label">Culture</string>
+    <string name="nature_label">Nature</string>
+    <string name="historic_label">Historic</string>
+    <string name="clear_label">Clear filtering</string>
 </resources>

@@ -114,7 +114,7 @@ class MainActivity : AppCompatActivity() {
                     R.id.att_by_list -> navController.navigate(R.id.experiFrag)
                     R.id.neighborhoods -> navController.navigate(R.id.osterbroFragment)
                     R.id.sign_out -> AuthUI.getInstance().signOut(applicationContext).addOnCompleteListener{
-                        startLoginActivity()
+                        //startLoginActivity()
                     }
                 }
                 true
@@ -126,18 +126,18 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
     }
 
-    override fun onStart() {
+    /*override fun onStart() {
         super.onStart()
         if (auth.currentUser == null)
             startLoginActivity()
         val user = auth.currentUser
-    }
+    }*/
 
-    private fun startLoginActivity() {
+    /*private fun startLoginActivity() {
         val intent = Intent(this, LoginActivity::class.java)
         startActivity(intent)
         //finish()
-    }
+    }*/
 
     override fun onResume() {
         super.onResume()
