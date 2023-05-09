@@ -7,22 +7,19 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import dk.itu.bachelor.voyager.databinding.ViewItineraryItemBinding
 import dk.itu.bachelor.voyager.models.ViewedItinerary
+import dk.itu.bachelor.voyager.utilities.DateUtilities
 import dk.itu.bachelor.voyager.utilities.LocationUtilities
 
 
-class ViewItineraryArrayAdapter (private val context: Context, private val viewItinerariesList: List<ViewedItinerary>):
+class ViewItineraryArrayAdapter (private val viewItinerariesList: List<ViewedItinerary>):
     RecyclerView.Adapter<ViewItineraryArrayAdapter.ViewHolder>() {
 
     inner class ViewHolder(private val binding: ViewItineraryItemBinding): RecyclerView.ViewHolder(binding.root) {
 
         fun bind(viewedItinerary: ViewedItinerary) {
             binding.dayText.text = viewedItinerary.day
-            binding.addressText.text = viewedItinerary.address
-            if(viewedItinerary.lat != null && viewedItinerary.lon != null) {
-                viewedItinerary.address = LocationUtilities.getAddress(context, viewedItinerary.lat!!, viewedItinerary.lon!!)
-            }
-            binding.timeText.text = viewedItinerary.time
             binding.experienceTitleText.text = viewedItinerary.experienceTitle
+            binding.experienceTimeText.text = DateUtilities.generateRandomTimestamp("08:00", "18:00")
         }
     }
 

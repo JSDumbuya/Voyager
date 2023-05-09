@@ -29,7 +29,7 @@
     <string name="itinery_view_notes">%s</string>
     <string name="begin_route_button">Begin Route</string>
     <string name="close_button_text">Close</string>
-    <string name="time_text">%s \n AM</string>
+    <string name="time_text">%s</string>
     <string name="experience_title_text">%s</string>
     <string name="address_text">%s</string>
     <string name="day_text">%s</string>

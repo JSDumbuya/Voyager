@@ -40,6 +40,7 @@
                 android:id="@+id/romantic"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:backgroundTint="@color/yellow"
                 android:text="@string/romantic_label" />
         </LinearLayout>
 
@@ -53,6 +54,7 @@
                 android:id="@+id/culture"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:backgroundTint="@color/yellow"
                 android:layout_marginEnd="10dp"
                 android:layout_marginStart="10dp"
                 android:text="@string/culture_label" />
@@ -61,6 +63,7 @@
                 android:id="@+id/historic"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:backgroundTint="@color/yellow"
                 android:layout_marginEnd="10dp"
                 android:text="@string/historic_label" />
 
@@ -68,6 +71,7 @@
                 android:id="@+id/popular"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:backgroundTint="@color/yellow"
                 android:text="@string/popular_label" />
 
         </LinearLayout>
@@ -81,6 +85,7 @@
                 android:id="@+id/active"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:backgroundTint="@color/yellow"
                 android:layout_marginEnd="5dp"
                 android:layout_marginStart="10dp"
                 android:text="@string/active_label" />
@@ -89,6 +94,7 @@
                 android:id="@+id/local"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:backgroundTint="@color/yellow"
                 android:layout_marginEnd="5dp"
                 android:text="@string/local_label" />
 
@@ -96,6 +102,7 @@
                 android:id="@+id/nature"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:backgroundTint="@color/yellow"
                 android:layout_marginEnd="5dp"
                 android:text="@string/nature_label" />
 
@@ -103,6 +110,7 @@
                 android:id="@+id/unique"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:backgroundTint="@color/yellow"
                 android:text="@string/unique_label" />
 
         </LinearLayout>
@@ -117,6 +125,7 @@
                 android:id="@+id/child_friendly"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:backgroundTint="@color/yellow"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
                 android:text="@string/child_friendly_label" />
@@ -125,6 +134,7 @@
                 android:id="@+id/clear"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:backgroundTint="@color/yellow"
                 android:text="@string/clear_label" />
 
         </LinearLayout>

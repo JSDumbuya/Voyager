@@ -38,7 +38,7 @@ class MapsFragment : Fragment(), OnMapsSdkInitializedCallback, View.OnClickListe
 
     private var experience: String = ""
 
-    private lateinit  var googleMap: GoogleMap
+    private lateinit  var googleMaps: GoogleMap
 
     private var selectedLabels = mutableListOf<String>()
 
@@ -141,8 +141,8 @@ class MapsFragment : Fragment(), OnMapsSdkInitializedCallback, View.OnClickListe
                 ) != PackageManager.PERMISSION_GRANTED
 
     @SuppressLint("MissingPermission")
-    private val callback = OnMapReadyCallback { map  ->
-        googleMap = map
+    private val callback = OnMapReadyCallback { googleMap  ->
+        googleMaps = googleMap
 
         // Add a marker in ITU and move the camera
         // Check if the user has granted location permission
@@ -178,7 +178,7 @@ class MapsFragment : Fragment(), OnMapsSdkInitializedCallback, View.OnClickListe
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 for (postSnapshot in dataSnapshot.children) {
                     val tempExp = postSnapshot.getValue(Experience::class.java)
-                    var tempPosition =
+                    val tempPosition =
                         tempExp?.let { LatLng(it.getLat(), tempExp.getLon()) }
                     if (tempExp != null) {
                         tempPosition?.let {
@@ -232,7 +232,7 @@ class MapsFragment : Fragment(), OnMapsSdkInitializedCallback, View.OnClickListe
 
     private fun filterMarkers(selectedLabels: List<String>) {
         // Clear all markers from the map
-        googleMap.clear()
+        googleMaps.clear()
 
         // Retrieve data from Firebase and filter based on labels
         Firebase.database(DATABASE_URL).reference.child("experiences")
@@ -240,7 +240,7 @@ class MapsFragment : Fragment(), OnMapsSdkInitializedCallback, View.OnClickListe
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                     for (postSnapshot in dataSnapshot.children) {
                         val tempExp = postSnapshot.getValue(Experience::class.java)
-                        var tempPosition = tempExp?.let { LatLng(it.getLat(), tempExp.getLon()) }
+                        val tempPosition = tempExp?.let { LatLng(it.getLat(), tempExp.getLon()) }
 
                         if (tempExp != null) {
                             val experienceLabels = tempExp.labels
@@ -251,7 +251,7 @@ class MapsFragment : Fragment(), OnMapsSdkInitializedCallback, View.OnClickListe
                                     val markerOptions = MarkerOptions()
                                         .position(it)
                                         .title(tempExp.name.toString())
-                                    googleMap.addMarker(markerOptions)
+                                    googleMaps.addMarker(markerOptions)
                                 }
                             }
                         }
