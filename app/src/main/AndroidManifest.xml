@@ -26,9 +26,9 @@
             android:name="com.facebook.sdk.ClientToken"
             android:value="@string/facebook_client_token" />
 
-       <!-- <activity
+       <activity
             android:name=".activities.LoginActivity"
-            android:exported="false" />-->
+            android:exported="false" />
         <activity
             android:name=".activities.MainActivity"
             android:windowSoftInputMode="adjustPan"

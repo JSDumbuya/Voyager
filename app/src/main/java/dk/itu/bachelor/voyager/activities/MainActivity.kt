@@ -126,18 +126,18 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
     }
 
-    /*override fun onStart() {
+    override fun onStart() {
         super.onStart()
         if (auth.currentUser == null)
             startLoginActivity()
         val user = auth.currentUser
-    }*/
+    }
 
-    /*private fun startLoginActivity() {
+    private fun startLoginActivity() {
         val intent = Intent(this, LoginActivity::class.java)
         startActivity(intent)
         //finish()
-    }*/
+    }
 
     override fun onResume() {
         super.onResume()

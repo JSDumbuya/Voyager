@@ -9,7 +9,7 @@ import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract
 import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult
 import dk.itu.bachelor.voyager.R
 
-/*class LoginActivity : AppCompatActivity() {
+class LoginActivity : AppCompatActivity() {
 
     private val signInLauncher =
         registerForActivityResult(
@@ -57,14 +57,14 @@ import dk.itu.bachelor.voyager.R
         finish()
     }
 
-    *//**
+    /**
      * Make a standard toast that just contains text.
      *
      * @param text The text to show. Can be formatted text.
      * @param duration How long to display the message. Either `Toast.LENGTH_SHORT` or
      *      `Toast.LENGTH_LONG`.
-     *//*
+     */
     private fun toast(text: CharSequence, duration: Int = Toast.LENGTH_SHORT) {
         Toast.makeText(this, text, duration).show()
     }
-}*/
+}
