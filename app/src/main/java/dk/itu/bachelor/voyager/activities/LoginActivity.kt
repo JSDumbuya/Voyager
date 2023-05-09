@@ -32,6 +32,7 @@ import dk.itu.bachelor.voyager.R
             .createSignInIntentBuilder()
             .setAvailableProviders(providers)
             .setTheme(R.style.Theme_Voyager)
+            .setLogo(R.drawable.logo)
             .build()
         signInLauncher.launch(signInIntent)
     }

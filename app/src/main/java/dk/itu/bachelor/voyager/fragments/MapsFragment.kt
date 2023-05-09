@@ -30,6 +30,7 @@ import com.google.firebase.ktx.Firebase
 import dk.itu.bachelor.voyager.R
 import dk.itu.bachelor.voyager.databinding.FragmentMapsBinding
 import dk.itu.bachelor.voyager.models.Experience
+import dk.itu.bachelor.voyager.models.Labels
 import dk.itu.bachelor.voyager.utilities.DATABASE_URL
 
 class MapsFragment : Fragment(), OnMapsSdkInitializedCallback, View.OnClickListener {
@@ -40,7 +41,8 @@ class MapsFragment : Fragment(), OnMapsSdkInitializedCallback, View.OnClickListe
 
     private lateinit  var googleMaps: GoogleMap
 
-    private var selectedLabels = mutableListOf<String>()
+    private var selectedLabels = mutableListOf<Labels>()
+    private val addedMarkers = mutableListOf<Marker>()
 
 
     // Store the selected marker as a class-level variable
@@ -76,7 +78,7 @@ class MapsFragment : Fragment(), OnMapsSdkInitializedCallback, View.OnClickListe
 
         binding.apply {
             childFriendly.setOnClickListener {
-                selectedLabels.add("CHILD_FRIENDLY")
+                selectedLabels.add(Labels.CHILD_FRIENDLY)
                 filterMarkers(selectedLabels)
             }
 
@@ -86,42 +88,42 @@ class MapsFragment : Fragment(), OnMapsSdkInitializedCallback, View.OnClickListe
             }
 
             romantic.setOnClickListener {
-                selectedLabels.add("ROMANTIC")
+                selectedLabels.add(Labels.ROMANTIC)
                 filterMarkers(selectedLabels)
             }
 
             popular.setOnClickListener {
-                selectedLabels.add("POPULAR")
+                selectedLabels.add(Labels.POPULAR)
                 filterMarkers(selectedLabels)
             }
 
             unique.setOnClickListener {
-                selectedLabels.add("UNIQUE")
+                selectedLabels.add(Labels.UNIQUE)
                 filterMarkers(selectedLabels)
             }
 
             local.setOnClickListener {
-                selectedLabels.add("LOCAL")
+                selectedLabels.add(Labels.LOCAL)
                 filterMarkers(selectedLabels)
             }
 
             active.setOnClickListener {
-                selectedLabels.add("ACTIVE")
+                selectedLabels.add(Labels.ACTIVE)
                 filterMarkers(selectedLabels)
             }
 
             culture.setOnClickListener {
-                selectedLabels.add("CULTURE")
+                selectedLabels.add(Labels.CULTURE)
                 filterMarkers(selectedLabels)
             }
 
             nature.setOnClickListener {
-                selectedLabels.add("NATURE")
+                selectedLabels.add(Labels.NATURE)
                 filterMarkers(selectedLabels)
             }
 
             historic.setOnClickListener {
-                selectedLabels.add("HISTORIC")
+                selectedLabels.add(Labels.HISTORIC)
                 filterMarkers(selectedLabels)
             }
         }
@@ -230,7 +232,7 @@ class MapsFragment : Fragment(), OnMapsSdkInitializedCallback, View.OnClickListe
 
     }
 
-    private fun filterMarkers(selectedLabels: List<String>) {
+    private fun filterMarkers(selectedLabels: List<Labels>) {
         // Clear all markers from the map
         googleMaps.clear()
 
@@ -245,8 +247,8 @@ class MapsFragment : Fragment(), OnMapsSdkInitializedCallback, View.OnClickListe
                         if (tempExp != null) {
                             val experienceLabels = tempExp.labels
 
-                            // Check if any of the selected labels match any of the labels of the experience
-                            if ((experienceLabels?.toSet()?.intersect(selectedLabels.toSet()))?.isNotEmpty()!!) {
+                                // Check if any of the selected labels match any of the labels of the experience
+                            if (experienceLabels?.any {it in selectedLabels} == true) {
                                 tempPosition?.let {
                                     val markerOptions = MarkerOptions()
                                         .position(it)
@@ -263,6 +265,8 @@ class MapsFragment : Fragment(), OnMapsSdkInitializedCallback, View.OnClickListe
                 }
             })
     }
+
+
     override fun onMapsSdkInitialized(renderer: MapsInitializer.Renderer) {
         when (renderer) {
             MapsInitializer.Renderer.LATEST ->

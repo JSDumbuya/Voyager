@@ -114,8 +114,6 @@ class ViewItineraryFragment : Fragment() {
                 }
             })
 
-            //todo - implementer gamle løsning her
-
             val itinerariesref = database.child("itineraries/$itemId/experiences")
 
             itinerariesref.addValueEventListener(object : ValueEventListener {
