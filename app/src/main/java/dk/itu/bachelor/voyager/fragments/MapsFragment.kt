@@ -42,7 +42,6 @@ class MapsFragment : Fragment(), OnMapsSdkInitializedCallback, View.OnClickListe
     private lateinit  var googleMaps: GoogleMap
 
     private var selectedLabels = mutableListOf<Labels>()
-    private val addedMarkers = mutableListOf<Marker>()
 
 
     // Store the selected marker as a class-level variable
@@ -231,7 +230,6 @@ class MapsFragment : Fragment(), OnMapsSdkInitializedCallback, View.OnClickListe
         }
 
     }
-
     private fun filterMarkers(selectedLabels: List<Labels>) {
         // Clear all markers from the map
         googleMaps.clear()
@@ -245,10 +243,7 @@ class MapsFragment : Fragment(), OnMapsSdkInitializedCallback, View.OnClickListe
                         val tempPosition = tempExp?.let { LatLng(it.getLat(), tempExp.getLon()) }
 
                         if (tempExp != null) {
-                            val experienceLabels = tempExp.labels
-
-                                // Check if any of the selected labels match any of the labels of the experience
-                            if (experienceLabels?.any {it in selectedLabels} == true) {
+                            if (selectedLabels.isEmpty() || tempExp.labels?.any { it in selectedLabels } == true) {
                                 tempPosition?.let {
                                     val markerOptions = MarkerOptions()
                                         .position(it)
@@ -265,7 +260,6 @@ class MapsFragment : Fragment(), OnMapsSdkInitializedCallback, View.OnClickListe
                 }
             })
     }
-
 
     override fun onMapsSdkInitialized(renderer: MapsInitializer.Renderer) {
         when (renderer) {
