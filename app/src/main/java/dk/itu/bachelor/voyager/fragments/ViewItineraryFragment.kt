@@ -58,9 +58,6 @@ class ViewItineraryFragment : Fragment() {
             findNavController().navigate(R.id.show_itineraries)
         }
 
-        binding.beginRouteButton.setOnClickListener {
-            throw NotImplementedError()
-        }
 
         var viewedItinerarylist = mutableListOf <ViewedItinerary>()
 
