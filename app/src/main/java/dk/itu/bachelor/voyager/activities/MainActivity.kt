@@ -114,7 +114,7 @@ class MainActivity : AppCompatActivity() {
                     R.id.att_by_list -> navController.navigate(R.id.experiFrag)
                     R.id.neighborhoods -> navController.navigate(R.id.osterbroFragment)
                     R.id.sign_out -> AuthUI.getInstance().signOut(applicationContext).addOnCompleteListener{
-                        startLoginActivity()
+                        //startLoginActivity()
                     }
                 }
                 true

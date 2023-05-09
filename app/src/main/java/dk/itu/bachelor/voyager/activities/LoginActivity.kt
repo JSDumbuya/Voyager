@@ -33,6 +33,7 @@ class LoginActivity : AppCompatActivity() {
             .setAvailableProviders(providers)
             .setLogo(R.drawable.logo)
             .setTheme(R.style.Theme_Voyager)
+            .setLogo(R.drawable.logo)
             .build()
         signInLauncher.launch(signInIntent)
     }

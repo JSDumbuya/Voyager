@@ -29,9 +29,19 @@
     <string name="itinery_view_notes">%s</string>
     <string name="begin_route_button">Begin Route</string>
     <string name="close_button_text">Close</string>
-    <string name="time_text">%s \n AM</string>
+    <string name="time_text">%s</string>
     <string name="experience_title_text">%s</string>
     <string name="address_text">%s</string>
     <string name="day_text">%s</string>
     <string name="view_itinerary_label">View Itinerary</string>
+    <string name="romantic_label">Romantic</string>
+    <string name="child_friendly_label">Child Friendly</string>
+    <string name="popular_label">Popular</string>
+    <string name="unique_label">Unique</string>
+    <string name="local_label">Local</string>
+    <string name="active_label">Active</string>
+    <string name="culture_label">Culture</string>
+    <string name="nature_label">Nature</string>
+    <string name="historic_label">Historic</string>
+    <string name="clear_label">Clear filtering</string>
 </resources>

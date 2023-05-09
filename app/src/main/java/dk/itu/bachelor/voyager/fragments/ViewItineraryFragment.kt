@@ -6,15 +6,11 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.*
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import dk.itu.bachelor.voyager.R
@@ -22,19 +18,17 @@ import dk.itu.bachelor.voyager.adapters.ViewItineraryArrayAdapter
 import dk.itu.bachelor.voyager.databinding.FragmentViewItineraryBinding
 import dk.itu.bachelor.voyager.models.ViewedItinerary
 import dk.itu.bachelor.voyager.utilities.DATABASE_URL
-import dk.itu.bachelor.voyager.utilities.DateUtilities.generateRandomTimestamp
-import dk.itu.bachelor.voyager.utilities.LocationUtilities
-import kotlin.math.log
-
 
 class ViewItineraryFragment : Fragment() {
 
     private var _binding: FragmentViewItineraryBinding? = null
-    private val binding get() = checkNotNull(_binding) {
-        "Binding is null"
-    }
+    private val binding
+        get() = checkNotNull(_binding) {
+            "Binding is null"
+        }
 
-    private lateinit var database : DatabaseReference
+    private lateinit var database: DatabaseReference
+    private lateinit var adapter: ViewItineraryArrayAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,6 +45,11 @@ class ViewItineraryFragment : Fragment() {
         return binding.root
     }
 
+    fun updateData (itemId: String?, newText: String?) {
+        val notesRef = database.child("itineraries/$itemId/notes")
+        notesRef.setValue(newText)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -58,12 +57,23 @@ class ViewItineraryFragment : Fragment() {
             findNavController().navigate(R.id.show_itineraries)
         }
 
+        var viewedItinerarylist = mutableListOf<ViewedItinerary>()
 
-        var viewedItinerarylist = mutableListOf <ViewedItinerary>()
+        binding.listItinerary.layoutManager = LinearLayoutManager(requireContext())
+        binding.listItinerary.addItemDecoration(
+            DividerItemDecoration(context, LinearLayoutManager.VERTICAL)
+        )
 
         val bundle = arguments
         if (bundle != null) {
             val itemId = bundle.getString("itemId")
+
+            val itinaryNotesInputField = binding.itineraryNotes
+
+            itinaryNotesInputField.setOnClickListener {
+                val valueText = itinaryNotesInputField.text.toString()
+                updateData(itemId, valueText)
+            }
 
             val description = database.child("itineraries/$itemId/description")
 
@@ -104,10 +114,9 @@ class ViewItineraryFragment : Fragment() {
                 }
             })
 
+            val itinerariesref = database.child("itineraries/$itemId/experiences")
 
-            val experiences = database.child("itineraries/$itemId/experiences")
-
-            experiences.addValueEventListener(object : ValueEventListener {
+            itinerariesref.addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                     val data = dataSnapshot.value as HashMap<String, List<Int>>
 
@@ -125,65 +134,12 @@ class ViewItineraryFragment : Fragment() {
                                     viewedItinerary.experienceTitle = infoname
                                     //Log.d("itinerary", "ExperienceTitle:" + viewedItinerary.experienceTitle)
 
-                                }
 
-                                override fun onCancelled(error: DatabaseError) {
-                                    Log.w(TAG, "Failed to read value.", error.toException())
-                                }
-                            })
-
-
-                            val explat = database.child("experiences/$experienceId/lat")
-                            explat.addValueEventListener(object : ValueEventListener {
-                                override fun onDataChange(dataSnapshot: DataSnapshot) {
-                                    val infolat = dataSnapshot.getValue(Double::class.java)
-                                    viewedItinerary.lat = infolat
-                                    //Log.d("itinerary", "Lat:" + viewedItinerary.lat)
-                                }
-
-                                override fun onCancelled(error: DatabaseError) {
-                                    Log.w(TAG, "Failed to read value.", error.toException())
-                                }
-                            })
-                            val explon = database.child("experiences/$experienceId/lon")
-                            explon.addValueEventListener(object : ValueEventListener {
-                                override fun onDataChange(dataSnapshot: DataSnapshot) {
-                                    val infolon = dataSnapshot.getValue(Double::class.java)
-                                    viewedItinerary.lon = infolon
-                                    //Log.d("itinerary", "Lon:" + viewedItinerary.lon)
-                                }
-
-                                override fun onCancelled(error: DatabaseError) {
-                                    Log.w(TAG, "Failed to read value.", error.toException())
-                                }
-                            })
-                            val expOpen = database.child("experiences/$experienceId/openTime")
-                            expOpen.addValueEventListener(object : ValueEventListener {
-                                override fun onDataChange(dataSnapshot: DataSnapshot) {
-                                    val infoOpen = dataSnapshot.getValue(String::class.java)
-                                    viewedItinerary.open = infoOpen
-                                    //Log.d("itinerary", "OpenTime:" + viewedItinerary.open)
-                                }
-
-                                override fun onCancelled(error: DatabaseError) {
-                                    Log.w(TAG, "Failed to read value.", error.toException())
-                                }
-                            })
-                            val expClose = database.child("experiences/$experienceId/closingTime")
-
-                            expClose.addValueEventListener(object : ValueEventListener {
-                                override fun onDataChange(dataSnapshot: DataSnapshot) {
-                                    val infoClosed = dataSnapshot.getValue(String::class.java)
-                                    viewedItinerary.closed = infoClosed
-                                    //Log.d("itinerary", "ClosingTime:" + viewedItinerary.closed)
                                     viewedItinerarylist.add(viewedItinerary)
-                                    binding.listItinerary.layoutManager = LinearLayoutManager(requireContext())
-                                    binding.listItinerary.addItemDecoration(
-                                        DividerItemDecoration(context, LinearLayoutManager.VERTICAL)
-                                    )
 
-                                    binding.listItinerary.adapter =
-                                        context?.let { ViewItineraryArrayAdapter(it, viewedItinerarylist) }
+                                    adapter = ViewItineraryArrayAdapter(viewedItinerarylist)
+                                    binding.listItinerary.adapter = adapter
+                                    adapter.notifyDataSetChanged()
                                 }
 
                                 override fun onCancelled(error: DatabaseError) {
@@ -193,7 +149,6 @@ class ViewItineraryFragment : Fragment() {
 
                         }
 
-
                     }
 
                 }
@@ -202,11 +157,9 @@ class ViewItineraryFragment : Fragment() {
                     Log.w(TAG, "Failed to read value.", error.toException())
                 }
             })
+
         }
 
-
     }
-
-
 
 }

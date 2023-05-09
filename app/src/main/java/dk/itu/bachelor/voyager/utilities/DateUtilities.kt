@@ -1,5 +1,6 @@
 package dk.itu.bachelor.voyager.utilities
 
+import java.time.LocalTime
 import kotlin.random.Random
 
 object DateUtilities {
@@ -12,7 +13,12 @@ object DateUtilities {
 
         val randomTime = "%02d:%02d".format(randomMinutes / 60, randomMinutes % 60)
 
-        return randomTime
+        val time1 = LocalTime.parse(randomTime)
+        val time2 = LocalTime.parse("12:00")
+
+        val amOrpm = if (time1.isBefore(time2)) "AM" else "PM"
+
+        return randomTime + " " + amOrpm
 
     }
 }

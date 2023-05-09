@@ -10,7 +10,6 @@ import android.location.LocationListener
 import android.location.LocationManager
 import android.net.Uri
 import androidx.fragment.app.Fragment
-
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -31,6 +30,7 @@ import com.google.firebase.ktx.Firebase
 import dk.itu.bachelor.voyager.R
 import dk.itu.bachelor.voyager.databinding.FragmentMapsBinding
 import dk.itu.bachelor.voyager.models.Experience
+import dk.itu.bachelor.voyager.models.Labels
 import dk.itu.bachelor.voyager.utilities.DATABASE_URL
 
 class MapsFragment : Fragment(), OnMapsSdkInitializedCallback, View.OnClickListener {
@@ -38,6 +38,12 @@ class MapsFragment : Fragment(), OnMapsSdkInitializedCallback, View.OnClickListe
     private var _binding: FragmentMapsBinding? = null
 
     private var experience: String = ""
+
+    private lateinit  var googleMaps: GoogleMap
+
+    private var selectedLabels = mutableListOf<Labels>()
+    private val addedMarkers = mutableListOf<Marker>()
+
 
     // Store the selected marker as a class-level variable
     private var selectedMarker: Marker? = null
@@ -69,6 +75,58 @@ class MapsFragment : Fragment(), OnMapsSdkInitializedCallback, View.OnClickListe
         super.onViewCreated(view, savedInstanceState)
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
         mapFragment?.getMapAsync(callback)
+
+        binding.apply {
+            childFriendly.setOnClickListener {
+                selectedLabels.add(Labels.CHILD_FRIENDLY)
+                filterMarkers(selectedLabels)
+            }
+
+            clear.setOnClickListener {
+                selectedLabels.clear()
+                filterMarkers(selectedLabels)
+            }
+
+            romantic.setOnClickListener {
+                selectedLabels.add(Labels.ROMANTIC)
+                filterMarkers(selectedLabels)
+            }
+
+            popular.setOnClickListener {
+                selectedLabels.add(Labels.POPULAR)
+                filterMarkers(selectedLabels)
+            }
+
+            unique.setOnClickListener {
+                selectedLabels.add(Labels.UNIQUE)
+                filterMarkers(selectedLabels)
+            }
+
+            local.setOnClickListener {
+                selectedLabels.add(Labels.LOCAL)
+                filterMarkers(selectedLabels)
+            }
+
+            active.setOnClickListener {
+                selectedLabels.add(Labels.ACTIVE)
+                filterMarkers(selectedLabels)
+            }
+
+            culture.setOnClickListener {
+                selectedLabels.add(Labels.CULTURE)
+                filterMarkers(selectedLabels)
+            }
+
+            nature.setOnClickListener {
+                selectedLabels.add(Labels.NATURE)
+                filterMarkers(selectedLabels)
+            }
+
+            historic.setOnClickListener {
+                selectedLabels.add(Labels.HISTORIC)
+                filterMarkers(selectedLabels)
+            }
+        }
     }
 
     override fun onDestroyView() {
@@ -85,7 +143,9 @@ class MapsFragment : Fragment(), OnMapsSdkInitializedCallback, View.OnClickListe
                 ) != PackageManager.PERMISSION_GRANTED
 
     @SuppressLint("MissingPermission")
-    private val callback = OnMapReadyCallback { googleMap ->
+    private val callback = OnMapReadyCallback { googleMap  ->
+        googleMaps = googleMap
+
         // Add a marker in ITU and move the camera
         // Check if the user has granted location permission
         if (ActivityCompat.checkSelfPermission(requireContext(),
@@ -120,7 +180,7 @@ class MapsFragment : Fragment(), OnMapsSdkInitializedCallback, View.OnClickListe
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 for (postSnapshot in dataSnapshot.children) {
                     val tempExp = postSnapshot.getValue(Experience::class.java)
-                    var tempPosition =
+                    val tempPosition =
                         tempExp?.let { LatLng(it.getLat(), tempExp.getLon()) }
                     if (tempExp != null) {
                         tempPosition?.let {
@@ -171,6 +231,41 @@ class MapsFragment : Fragment(), OnMapsSdkInitializedCallback, View.OnClickListe
         }
 
     }
+
+    private fun filterMarkers(selectedLabels: List<Labels>) {
+        // Clear all markers from the map
+        googleMaps.clear()
+
+        // Retrieve data from Firebase and filter based on labels
+        Firebase.database(DATABASE_URL).reference.child("experiences")
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    for (postSnapshot in dataSnapshot.children) {
+                        val tempExp = postSnapshot.getValue(Experience::class.java)
+                        val tempPosition = tempExp?.let { LatLng(it.getLat(), tempExp.getLon()) }
+
+                        if (tempExp != null) {
+                            val experienceLabels = tempExp.labels
+
+                                // Check if any of the selected labels match any of the labels of the experience
+                            if (experienceLabels?.any {it in selectedLabels} == true) {
+                                tempPosition?.let {
+                                    val markerOptions = MarkerOptions()
+                                        .position(it)
+                                        .title(tempExp.name.toString())
+                                    googleMaps.addMarker(markerOptions)
+                                }
+                            }
+                        }
+                    }
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    Log.d(TAG, "Loadpost: onCancelled")
+                }
+            })
+    }
+
 
     override fun onMapsSdkInitialized(renderer: MapsInitializer.Renderer) {
         when (renderer) {
