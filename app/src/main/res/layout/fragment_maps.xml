@@ -36,12 +36,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal">
+
             <Button
-                android:id="@+id/romantic"
+                android:id="@+id/clear"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/yellow"
-                android:text="@string/romantic_label" />
+                android:backgroundTint="@color/turqouise_light"
+                android:text="@string/clear_label" />
+
         </LinearLayout>
 
         <LinearLayout
@@ -131,11 +133,11 @@
                 android:text="@string/child_friendly_label" />
 
             <Button
-                android:id="@+id/clear"
+                android:id="@+id/romantic"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/turqouise_light"
-                android:text="@string/clear_label" />
+                android:backgroundTint="@color/yellow"
+                android:text="@string/romantic_label" />
 
         </LinearLayout>
 
